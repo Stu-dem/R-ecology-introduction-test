@@ -17,10 +17,13 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -104,34 +107,34 @@ button.code-folding-btn:focus {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 51px;
+  padding-top: 60px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 
 .section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 </style>
 
@@ -168,9 +171,104 @@ $(document).ready(function () {
 
 
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
 
 
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -178,7 +276,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">My Website</a>
+      <a class="navbar-brand" href="index.html">SAEON GSN R intro workshop</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -219,9 +317,19 @@ $(document).ready(function () {
 </div>
 
 
+<script>
+$(document).ready(function() {
+  $items = $('div#TOC li');
+  $items.each(function(idx) {
+    num_ul = $(this).parentsUntil('#TOC').length;
+    $(this).css({'text-indent': num_ul * 10, 'padding-left': 0});
+  });
+
+});
+</script>
 <div id="what-is-this" class="section level1">
 <h1>What is this?</h1>
-<p>Multivariate statistics describes a collection of analysis methods which considers the relationship between multiple response variables (these response variables are generally termed the “species” variables. This is because these analysis methods were principly developed to study the relationship between multiple species abundances). These species variables can either occur on their own (indirect gradient analysis) or be explained by one or more “environmental” variables. Environmental variables are those which are thought to explain the presence of the species variables. The data that we would collect for such an analysis would then be a species composition table which looks somthing like this:</p>
+<p>Multivariate statistics describes a collection of analysis methods which considers the relationship between multiple response variables (these response variables are generally termed the “species” variables. This is because these analysis methods were principly developed to study the relationship between multiple species abundances). These species variables can either occur on their own (indirect gradient analysis) or be explained by one or more “environmental” variables. Environmental variables are those which are thought to explain the presence of the species variables. I cannot teach you the underlying principles of multivariate statistics but head over to <a href="http://ordination.okstate.edu/">here</a> to get a theoretical introduction and look <a href="http://cc.oulu.fi/~jarioksa/opetus/metodi/vegantutor.pdf">here</a> for tutorials using R. The data that we would collect for such an analysis would then be a species composition table which looks somthing like this:</p>
 <pre class="r"><code>head(fence_species)</code></pre>
 <pre><code>## # A tibble: 6 x 25
 ##   AcaAta AcaKar AcaNil AcaSeb CalAur CanCil CanMun CelAfr CodRud DalObo
@@ -236,15 +344,27 @@ $(document).ready(function () {
 ## #   EucPen &lt;dbl&gt;, GreOcc &lt;dbl&gt;, HipCat &lt;dbl&gt;, Jas &lt;dbl&gt;, LanCam &lt;dbl&gt;,
 ## #   Lip &lt;dbl&gt;, MayHet &lt;dbl&gt;, Pter &lt;dbl&gt;, RhuPen &lt;dbl&gt;, AcaMea &lt;dbl&gt;,
 ## #   ZanCap &lt;dbl&gt;, ZizMuc &lt;dbl&gt;</code></pre>
-<p>This is a dataset containing data collected during a fenceeline study between Bisley Nature Reserve and Ukulinga Research Farm. The species (tree species) are the columns, each row is a new plot where species compositions were carried out. If no individuals of a particular species were found in a given plot the composition equals zero. To start with we will just want to see how these species are ordinated, is the composition relatively uniform or are there distinct <em>gradients</em> which the species vary along. Basic R contains some multivariate funcitoning (PCA and clustering) but to carry out direct gradient analysis where the environmental variables are essentially treated as treatments which describe the change in composition between sites we will need to download <code>vegan</code> (vegetation analysis). Even though it was initially produced for vegetation ecologists the methodology holds true across disciplines. Anyone interested in species compostion and diversity analyses would find this package incredibly useful. For example one could conduct a multivariate analysis on species composition data from coral composition as the species data based on environmental factors such as water oxygen and carbon levels, turbidity, current direction, and pH. Interestingly, your species dataset doesn’t necessarily need to be made up of species composition data. You could have soil chemical properties as species and physical environmental properties as the explanatory variables - an example we will consider later. If you haven’t already done so please install and load <code>vegan</code> now:</p>
+<p>This is a dataset containing data collected during a fenceeline study between Bisley Nature Reserve and Ukulinga Research Farm. The species (tree species) are the columns, each row is a new plot where species compositions were carried out. If no individuals of a particular species were found in a given plot the composition equals zero. To start with we will just want to see how these species are ordinated, is the composition relatively uniform or are there distinct <em>gradients</em> which the species vary along.</p>
+<p>Basic R contains some multivariate funcitoning (PCA and clustering) but to carry out direct gradient analysis where the environmental variables are essentially treated as treatments which describe the change in composition between sites we will need to download <code>vegan</code> (vegetation analysis). Even though it was initially produced for vegetation ecologists the methodology holds true across disciplines. Anyone interested in species compostion and diversity analyses would find this package incredibly useful.</p>
+<p>For example one could conduct a multivariate analysis on species composition data from coral composition as the species data based on environmental factors such as water oxygen and carbon levels, turbidity, current direction, and pH. Interestingly, your species dataset doesn’t necessarily need to be made up of species composition data. You could have soil chemical properties as species and physical environmental properties as the explanatory variables - an example we will consider later.</p>
+<div id="vegan" class="section level2">
+<h2>Vegan</h2>
+<p>If you haven’t already done so please install and load <code>vegan</code> now:</p>
 <pre><code>install.packages(&quot;vegan&quot;)
 library(vegan)</code></pre>
-<p>Many multivariate analyses are conducted on transformed or standardised matricies. In order to accurately carry out the analysis successfully you will need to standardise or transform your datasets. <code>vegan</code> has two built-in functions for doing this. The first (either <code>dist</code> or <code>vegdist</code>) is to generate distance matricies. These are priciply done when carrying out clustering analyses to produce dendrograms. The other function is <code>decostand</code> which standardises community datasets based on a particular function. Depending on the type of analysis we are carrying out we will likely carry out different standardisation methods. <a href="https://link.springer.com/article/10.1007/s004420100716">this paper</a> is written to describe where and when we should carry out specific standardisation methods. It also gives a fanstastic (albeit quite brief) introduction into multivariate statistics. If you are interested in these methods I really encourage you to read through this. The gist of their argument is that traditionally one would carry out a detrended correspondance analysis (DCA), consider the gradient lengths, and then pick an analysis approach based on that length - short gradients (RDA/CCA), medium gradients (CCA), long gradients (DCA). The above paper, however, argues that conducting analyses on untransformed datasets can give unfair or unwarranted weighting to rare species. Depending on your needs you should alternatively choose a transformation method that best suits your desired analysis.</p>
+<div id="species-standardisation" class="section level4">
+<h4>Species standardisation</h4>
+<p>Many multivariate analyses are conducted on transformed or standardised matricies. In order to accurately carry out the analysis successfully you will need to standardise or transform your datasets. <code>vegan</code> has two built-in functions for doing this. The first (either <code>dist</code> or <code>vegdist</code>) is to generate distance matricies. These are priciply done when carrying out clustering analyses to produce dendrograms. The other function is <code>decostand</code> which standardises community datasets based on a particular function. Depending on the type of analysis we are carrying out we will likely carry out different standardisation methods. <a href="https://link.springer.com/article/10.1007/s004420100716">this paper</a> is written to describe where and when we should carry out specific standardisation methods. It also gives a fanstastic (albeit quite brief) introduction into multivariate statistics. If you are interested in these methods I really encourage you to read through this.</p>
+<p>The gist of their argument is that traditionally one would carry out a detrended correspondance analysis (DCA), consider the gradient lengths, and then pick an analysis approach based on that length - short gradients (RDA/CCA), medium gradients (CCA), long gradients (DCA). The above paper, however, argues that conducting analyses on untransformed datasets can give unfair or unwarranted weighting to rare species. Depending on your needs you should alternatively choose a transformation method that best suits your desired analysis.</p>
 <ul>
 <li>If you are wanting to give extra weighting in favour of rare species then you might consider Chi-square distance transformations.<br />
 *If you are wanting your more common species to recieve a greater weighting then you can assign Hellinger or chord transformations to your matricies.</li>
 </ul>
-<p>In general I would suggest using the Hellinger transformation as a failsafe. Bray-Curtis is also a very popular method one could use. If you are struggling to choose a method then give the above paper a good read, or if you are still unsure then have a look at a famous article that has conducted an analysis similar to yours and follow their method. Okay, let’s give this a bash. Let us compute a correspondance analysis (CA) for the fenceline data. Import it now (choose the “species” sheet) and name it fence_species. For simplicity, <code>vegan</code> simply has two functions for ordination, <code>rda</code> and <code>cca</code>. <code>rda</code> will compute both PCA and RDA, and <code>cca</code> will compute CA and CCA. This is because the only difference between PCA and RDA is that one incorporates environmental variables into it. If we simply do not include the environmental variables then we will just be running the indirect gradient analysis. Including environmental variables will then automatically output the direct gradient analysis. So to carry out a CA we would go:</p>
+<p>In general I would suggest using the Hellinger transformation as a failsafe. Bray-Curtis is also a very popular method one could use. If you are struggling to choose a method then give the above paper a good read, or if you are still unsure then have a look at a famous article that has conducted an analysis similar to yours and follow their method.</p>
+</div>
+<div id="our-first-ca-in-r" class="section level4">
+<h4>Our first CA in R</h4>
+<p>Okay, let’s give this a bash. Let us compute a correspondance analysis (CA) for the fenceline data. Import it now (choose the “species” sheet) and name it fence_species. For simplicity, <code>vegan</code> simply has two functions for ordination, <code>rda</code> and <code>cca</code>. <code>rda</code> will compute both PCA and RDA, and <code>cca</code> will compute CA and CCA. This is because the only difference between PCA and RDA is that one incorporates environmental variables into it. If we simply do not include the environmental variables then we will just be running the indirect gradient analysis. Including environmental variables will then automatically output the direct gradient analysis. So to carry out a CA we would go:</p>
 <pre class="r"><code>fence_species_hel &lt;- decostand(fence_species, method = &quot;hellinger&quot;)
 fence.ca &lt;- cca(fence_species_hel)</code></pre>
 <p>We’ve now carried that out and stored the output in a new variable called <code>fence.ca</code>. This little variable contains a stack of information that we can access in a very simple manner. The best way to extract these data would be:</p>
@@ -339,7 +459,12 @@ summary(fence.ca)</code></pre>
 ## sit20 -0.1617  1.21174 -0.38570  0.40355  0.6819  1.6789
 ## sit21 -0.4769  1.14223 -0.46416  0.64015  0.5284  1.1357
 ## sit22 -0.2664  0.93936 -0.29822  0.12834 -0.7295 -1.2081</code></pre>
-<p>This output here is very similar to what might be generated by CANOCO or PAST. The most important things for us here are the eigenvalues for CA1 and CA2 as well as the proportion of variance explained by these first two axes. The greater the variance explained the greater the fit of your data to the CA model. Now this computation is okay but we can radically improve it if we had some explanatory variables to include in the analysis. Fortunately we do. Please load the second sheet of the Fenceline dataset - envi, call it <code>fence_envi</code>:</p>
+<p>This output here is very similar to what might be generated by CANOCO or PAST. The most important things for us here are the eigenvalues for CA1 and CA2 as well as the proportion of variance explained by these first two axes. The greater the variance explained the greater the fit of your data to the CA model.</p>
+</div>
+</div>
+<div id="our-first-cca-in-r" class="section level2">
+<h2>Our first CCA in R</h2>
+<p>Now this computation is okay but we can radically improve it if we had some explanatory variables to include in the analysis. Fortunately we do. Please load the second sheet of the Fenceline dataset - envi, call it <code>fence_envi</code>:</p>
 <pre class="r"><code>head(fence_envi)</code></pre>
 <pre><code>## # A tibble: 6 x 4
 ##   slope  rock  clay site    
@@ -353,7 +478,10 @@ summary(fence.ca)</code></pre>
 <p>There are four variables here which describe the physical terrain of each plot that was sampled as well as a grouping variable which describes which side of the fence the data were collected on. We can then incorporate these variables into our analysis as:</p>
 <pre class="r"><code>fence_cca &lt;- cca(fence_species_hel ~ slope*rock + clay + site, 
                  data = fence_envi)</code></pre>
-<p>The overall idea here is very similar to how our univariate statistics functioned. We have a response variable (which for us here happens to be an entire <code>data.frame</code>) which is then a function of a combination of environmental variables (you can enter these in the same manner as in univariate analyses to produce complex interaction terms). I have chosen what I think might be an ecologically reasonable model but you can play around with this and see what else is possible. Once that analysis is run we could call up <code>summary()</code> as before to obtain eigenvalues and variance explanation. We can also produce an ANOVA table for this analysis because we have both response variables and treatments. There are two options available to us. We can look at the effect of <code>axis</code> or the effect of <code>terms</code> on the distribution of the species variables:</p>
+<p>The overall idea here is very similar to how our univariate statistics functioned. We have a response variable (which for us here happens to be an entire <code>data.frame</code>) which is then a function of a combination of environmental variables (you can enter these in the same manner as in univariate analyses to produce complex interaction terms). I have chosen what I think might be an ecologically reasonable model but you can play around with this and see what else is possible.</p>
+<div id="exploring-model-outputs" class="section level4">
+<h4>Exploring model outputs</h4>
+<p>Once that analysis is run we could call up <code>summary()</code> as before to obtain eigenvalues and variance explanation. We can also produce an ANOVA table for this analysis because we have both response variables and treatments. There are two options available to us. We can look at the effect of <code>axis</code> or the effect of <code>terms</code> on the distribution of the species variables:</p>
 <pre class="r"><code>fence_cca &lt;- cca(fence_species_hel ~ slope*rock*clay + site, 
                  data = fence_envi)
 anova(fence_cca, by = &quot;axis&quot;)</code></pre>
@@ -364,14 +492,14 @@ anova(fence_cca, by = &quot;axis&quot;)</code></pre>
 ## 
 ## Model: cca(formula = fence_species_hel ~ slope * rock * clay + site, data = fence_envi)
 ##          Df ChiSquare      F Pr(&gt;F)
-## CCA1      1   0.28964 2.9187  0.237
-## CCA2      1   0.23267 2.3446  0.370
-## CCA3      1   0.14627 1.4740  0.924
-## CCA4      1   0.10914 1.0998  0.976
-## CCA5      1   0.07931 0.7992  0.995
-## CCA6      1   0.06128 0.6175  0.996
+## CCA1      1   0.28964 2.9187  0.216
+## CCA2      1   0.23267 2.3446  0.377
+## CCA3      1   0.14627 1.4740  0.926
+## CCA4      1   0.10914 1.0998  0.978
+## CCA5      1   0.07931 0.7992  0.993
+## CCA6      1   0.06128 0.6175  0.995
 ## CCA7      1   0.03731 0.3760  1.000
-## CCA8      1   0.01953 0.1968  0.998
+## CCA8      1   0.01953 0.1968  0.997
 ## Residual 13   1.29007</code></pre>
 <pre class="r"><code>anova(fence_cca, by = &quot;terms&quot;)</code></pre>
 <pre><code>## Permutation test for cca under reduced model
@@ -381,14 +509,14 @@ anova(fence_cca, by = &quot;axis&quot;)</code></pre>
 ## 
 ## Model: cca(formula = fence_species_hel ~ slope * rock * clay + site, data = fence_envi)
 ##                 Df ChiSquare      F Pr(&gt;F)  
-## slope            1   0.15354 1.5472  0.108  
-## rock             1   0.16030 1.6154  0.055 .
-## clay             1   0.06666 0.6717  0.815  
-## site             1   0.16765 1.6894  0.058 .
-## slope:rock       1   0.05435 0.5477  0.920  
-## slope:clay       1   0.05124 0.5164  0.912  
-## rock:clay        1   0.10789 1.0872  0.348  
-## slope:rock:clay  1   0.21352 2.1517  0.011 *
+## slope            1   0.15354 1.5472  0.119  
+## rock             1   0.16030 1.6154  0.069 .
+## clay             1   0.06666 0.6717  0.832  
+## site             1   0.16765 1.6894  0.050 *
+## slope:rock       1   0.05435 0.5477  0.927  
+## slope:clay       1   0.05124 0.5164  0.926  
+## rock:clay        1   0.10789 1.0872  0.381  
+## slope:rock:clay  1   0.21352 2.1517  0.014 *
 ## Residual        13   1.29007                
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
@@ -420,36 +548,41 @@ summary(fence_simper)</code></pre>
 ## Contrast: Ukulinga_Bisley 
 ## 
 ##          average       sd  ratio     ava     avb cumsum     p   
-## AcaKar 0.1210359 0.088605 1.3660 33.6088 23.4889 0.1765 0.860   
-## CodRud 0.1118435 0.057119 1.9581  7.0823 25.8138 0.3396 0.002 **
-## AcaNil 0.1072946 0.099271 1.0808 23.0772  3.3008 0.4960 0.183   
-## GreOcc 0.0907471 0.051042 1.7779  2.6884 18.2140 0.6284 0.002 **
-## LanCam 0.0485070 0.036834 1.3169  3.9719 10.3764 0.6991 0.042 * 
-## AcaAta 0.0385433 0.054154 0.7117  3.0157  5.8564 0.7553 0.226   
-## RhuPen 0.0351045 0.034200 1.0265  6.5218  2.9838 0.8065 0.941   
-## AcaSeb 0.0319898 0.051978 0.6154  6.3175  0.0000 0.8531 0.653   
-## MayHet 0.0182231 0.026356 0.6914  2.5320  1.8363 0.8797 0.562   
-## EhrRid 0.0164945 0.038283 0.4309  3.2574  0.0000 0.9038 0.719   
-## ZizMuc 0.0147228 0.023760 0.6196  2.3072  1.2524 0.9252 0.675   
-## HipCat 0.0114232 0.016869 0.6772  0.0000  2.1929 0.9419 0.011 * 
-## AcaMea 0.0104955 0.034994 0.2999  2.0727  0.0000 0.9572 0.683   
-## CanMun 0.0076782 0.015858 0.4842  0.0000  1.5356 0.9684 0.132   
-## CelAfr 0.0066008 0.011468 0.5756  1.3036  0.0000 0.9780 0.786   
-## EucDiv 0.0032923 0.008435 0.3903  0.6502  0.0000 0.9828 0.653   
-## EucPen 0.0025907 0.006885 0.3763  0.0000  0.4902 0.9866 0.371   
-## CalAur 0.0024113 0.008735 0.2760  0.4762  0.0000 0.9901 0.437   
-## ZanCap 0.0021462 0.005687 0.3774  0.3142  0.1225 0.9932 0.465   
-## CanCil 0.0020094 0.007279 0.2760  0.3968  0.0000 0.9962 0.440   
-## DalObo 0.0006956 0.002520 0.2760  0.1374  0.0000 0.9972 0.453   
-## Jas    0.0006956 0.002520 0.2760  0.1374  0.0000 0.9982 0.453   
-## Pter   0.0006649 0.002409 0.2760  0.1313  0.0000 0.9992 0.448   
-## EucNat 0.0005682 0.001510 0.3763  0.0000  0.1136 1.0000 0.376   
+## AcaKar 0.1210359 0.088605 1.3660 33.6088 23.4889 0.1765 0.858   
+## CodRud 0.1118435 0.057119 1.9581  7.0823 25.8138 0.3396 0.003 **
+## AcaNil 0.1072946 0.099271 1.0808 23.0772  3.3008 0.4960 0.192   
+## GreOcc 0.0907471 0.051042 1.7779  2.6884 18.2140 0.6284 0.003 **
+## LanCam 0.0485070 0.036834 1.3169  3.9719 10.3764 0.6991 0.043 * 
+## AcaAta 0.0385433 0.054154 0.7117  3.0157  5.8564 0.7553 0.242   
+## RhuPen 0.0351045 0.034200 1.0265  6.5218  2.9838 0.8065 0.942   
+## AcaSeb 0.0319898 0.051978 0.6154  6.3175  0.0000 0.8531 0.664   
+## MayHet 0.0182231 0.026356 0.6914  2.5320  1.8363 0.8797 0.555   
+## EhrRid 0.0164945 0.038283 0.4309  3.2574  0.0000 0.9038 0.707   
+## ZizMuc 0.0147228 0.023760 0.6196  2.3072  1.2524 0.9252 0.661   
+## HipCat 0.0114232 0.016869 0.6772  0.0000  2.1929 0.9419 0.005 **
+## AcaMea 0.0104955 0.034994 0.2999  2.0727  0.0000 0.9572 0.682   
+## CanMun 0.0076782 0.015858 0.4842  0.0000  1.5356 0.9684 0.120   
+## CelAfr 0.0066008 0.011468 0.5756  1.3036  0.0000 0.9780 0.772   
+## EucDiv 0.0032923 0.008435 0.3903  0.6502  0.0000 0.9828 0.646   
+## EucPen 0.0025907 0.006885 0.3763  0.0000  0.4902 0.9866 0.362   
+## CalAur 0.0024113 0.008735 0.2760  0.4762  0.0000 0.9901 0.444   
+## ZanCap 0.0021462 0.005687 0.3774  0.3142  0.1225 0.9932 0.452   
+## CanCil 0.0020094 0.007279 0.2760  0.3968  0.0000 0.9962 0.444   
+## DalObo 0.0006956 0.002520 0.2760  0.1374  0.0000 0.9972 0.415   
+## Jas    0.0006956 0.002520 0.2760  0.1374  0.0000 0.9982 0.415   
+## Pter   0.0006649 0.002409 0.2760  0.1313  0.0000 0.9992 0.420   
+## EucNat 0.0005682 0.001510 0.3763  0.0000  0.1136 1.0000 0.340   
 ## Lip    0.0000000 0.000000    NaN  0.0000  0.0000 1.0000 1.000   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
 ## Permutation: free
 ## Number of permutations: 999</code></pre>
-<p>The output here is a little confusing - I will not attempt to explain it here but will suggest you read <code>?simper</code> very carefully as well as looking into how dissimialrity measures (such as Bray-Curtis) are calculated. In brief though this analysis tells us that <em>Acacia karoo</em>, <em>Codia ruddis</em>, and <em>Acacia nilotica</em> are the most important species explaining the differences between the two sites. Let’s try our hand at visualising these results to see if our statistics give a similar output to our plots. I am not going to lie - drawing these plots is not the simplest exercies but I will work through it with you slowly here. At present there is no “official” package that we can access to plot these results - we will need to access <a href="https://github.com/jfq3/ggordiplots">github</a> to download a package in development called <code>ggordiplots</code>. <code>vegan</code> has some plotting capabilities but in all honesty they are very poor and cannot be customised much and so rather than even introducing you to those methods we will dive straight into this method. In order to access packages that are still in development we will need to download a new package called <code>devtools</code>:</p>
+<p>The output here is a little confusing - I will not attempt to explain it here but will suggest you read <code>?simper</code> very carefully as well as looking into how dissimialrity measures (such as Bray-Curtis) are calculated. In brief though this analysis tells us that <em>Acacia karoo</em>, <em>Codia ruddis</em>, and <em>Acacia nilotica</em> are the most important species explaining the differences between the two sites. Let’s try our hand at visualising these results to see if our statistics give a similar output to our plots.</p>
+</div>
+</div>
+<div id="plotting-with-ggordiplots" class="section level2">
+<h2>Plotting with <code>ggordiplots()</code></h2>
+<p>I am not going to lie - drawing these plots is not the simplest exercies but I will work through it with you slowly here. At present there is no “official” package that we can access to plot these results - we will need to access <a href="https://github.com/jfq3/ggordiplots">github</a> to download a package in development called <code>ggordiplots</code>. <code>vegan</code> has some plotting capabilities but in all honesty they are very poor and cannot be customised much and so rather than even introducing you to those methods we will dive straight into this method. In order to access packages that are still in development we will need to download a new package called <code>devtools</code>:</p>
 <pre><code>install.packages(&quot;devtools&quot;)</code></pre>
 <p>Once that is installed we will call it up from the library as normal:</p>
 <pre><code>library(devtools)</code></pre>
@@ -464,9 +597,8 @@ fence_cca &lt;- cca(fence_species_hell ~ slope*rock*clay,
                  data = fence_envi)
 
 fence_species_ggordi &lt;- gg_ordiplot(fence_cca, 
-                            groups = fence_envi$site)</code></pre>
-<p><img src="Multivariate_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<pre class="r"><code>fence_species_scores &lt;- as.data.frame(scores(fence_cca, 
+                            groups = fence_envi$site, plot = FALSE)
+fence_species_scores &lt;- as.data.frame(scores(fence_cca, 
                                        choices = c(1,2), 
                                        display = &quot;species&quot;))
 ## rownames_to_column() needs tidyverse
@@ -484,7 +616,7 @@ fence_cca_plot &lt;- ggplot() +
              size = 3.5, alpha = 0.5, stroke = 0) + 
   geom_point(data = fence_species_ggordi$df_spiders, 
              aes(x = cntr.x, y = cntr.y, colour = Group), 
-             size = 6) + 
+             size = 4.5, show.legend = FALSE) + 
   geom_path(data = fence_species_ggordi$df_ellipse, 
             aes(x = x, y = y, colour = Group), 
             size = 1) + 
@@ -508,18 +640,52 @@ fence_cca_plot &lt;- ggplot() +
         text = element_text(size = 11), 
         axis.text = element_text(colour = &quot;black&quot;)) + 
   labs(x = &quot;CCA 1 (10.30%)&quot;,        y = &quot;CCA 2 (9.50%)&quot;, 
-       colour = &quot;Fence side&quot;) # +
-# scale_color_brewer(palette = &quot;Spectral&quot;)
+       colour = &quot;Fence side&quot;) + 
+ scale_color_brewer(palette = &quot;Accent&quot;)
 fence_cca_plot</code></pre>
-<p><img src="Multivariate_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
+<p><img src="Multivariate_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>That is the output we get which looks pretty neat. You can play around with the colour schemes within ggplot, however, what I find a lot easier is to save this plot as a .svg and open it up in <a href="https://inkscape.org/en/">Inkscape</a>, ungroup all the layers and then adjust everthing from there. An incredibly useful tool that Inkscape has is to select objects by similar fill and stroke (outline) colours. This makes it very easy to change all of that selected colour to another shade, for instance.</p>
 </div>
-<div id="rda-with-sweetsour.xlsx" class="section level1">
-<h1><code>rda()</code> with sweetsour.xlsx</h1>
-<p>Now that we have a handle on producing a fairly complex plot of species, sites and environmental variables I’d like you to try applying these techniques to the sweetsour dataset. This dataset contains species variables which are soil chemical properties. The environmental variables are then climatic data and physical properties that could potentially drive the underlying soil chemical properties.</p>
+<div id="exercises-pca-and-rda" class="section level2">
+<h2>Exercises: PCA and RDA</h2>
+<p>Now that we have a handle on producing a fairly complex plot of species, sites and environmental variables I’d like you to try applying these techniques to the sweetsour dataset. This dataset contains species variables which are soil chemical properties. The environmental variables are then climatic data and physical properties that could potentially drive the underlying soil chemical properties. What your job is is to figure out how to produce the plot below. I will outline the steps required but you will need to put the code together yourselves.</p>
+<p>PCA Process:</p>
+<ol style="list-style-type: decimal">
+<li>Import the “species” and “envi” sheets from the sweetsour.xls workbook.</li>
+<li>Standardise the species data using the <code>standardize</code> method.</li>
+<li>Carry out a PCA (using <code>rda()</code>) on the standardised species data.</li>
+<li>Extract the species scores from the pca object.</li>
+<li>Use <code>ggordiplot()</code> to plot the site data grouped by veld type.</li>
+<li>Build the plot by drawing out the desired elements from the ggordiplot object.</li>
+<li>Add your species data to the plot as arrows.</li>
+<li>Add the label for the species vectors.</li>
+<li>Edit the theme of your plot to make it more presentable.</li>
+</ol>
+<p><img src="Multivariate_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>RDA process:</p>
+<ol style="list-style-type: decimal">
+<li>Import the “species” and “envi” sheets from the sweetsour.xls workbook.</li>
+<li>Standardise the species data using the <code>standardize</code> method.</li>
+<li>Carry out a RDA (using <code>rda()</code>) on the standardised species data (For this analysis the model below only contains the environmental variable main effects, no interaction effects are present).</li>
+<li>Extract the species scores from the rda object.</li>
+<li>Extract the environmental variable scores from the rda.</li>
+<li>Use <code>ggordiplot()</code> to plot the site data grouped by veld type.</li>
+<li>Build the plot by drawing out the desired elements from the ggordiplot object.</li>
+<li>Add your species data to the plot as arrows.</li>
+<li>Add the label for the species vectors.</li>
+<li>Add your environment variable data to the plot as arrows (maybe make these arrows thicker or a different colour so you know which arrows refer to which).</li>
+<li>Add the labels for these environmental variable vectors.</li>
+<li>Edit the theme of your plot to make it more presentable.</li>
+</ol>
+<p><img src="Multivariate_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>This is a pretty cool plot but there are quite a few overlapping labels and some covarying environmental variables. You can pick one of the covarying variables (maybe the less significant one) and remove it from the model. You can then save the figure and open it in Inkscape and move the labels around to make it look pretty smart.</p>
+</div>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 

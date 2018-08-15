@@ -17,10 +17,13 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -104,34 +107,34 @@ button.code-folding-btn:focus {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 51px;
+  padding-top: 60px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 
 .section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 </style>
 
@@ -168,9 +171,104 @@ $(document).ready(function () {
 
 
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
 
 
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -178,7 +276,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">My Website</a>
+      <a class="navbar-brand" href="index.html">SAEON GSN R intro workshop</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -219,11 +317,21 @@ $(document).ready(function () {
 </div>
 
 
-<div id="a-baby-steps-introduction-to-r-coding" class="section level1">
-<h1>A ‘baby steps’ introduction to R coding</h1>
+<script>
+$(document).ready(function() {
+  $items = $('div#TOC li');
+  $items.each(function(idx) {
+    num_ul = $(this).parentsUntil('#TOC').length;
+    $(this).css({'text-indent': num_ul * 10, 'padding-left': 0});
+  });
+
+});
+</script>
+<div id="how-to-speak-r" class="section level1">
+<h1>How to speak R</h1>
 <div id="creating-objects-in-r" class="section level2">
 <h2>Creating objects in R</h2>
-<p>We just learnt about the theoretical differences between the console and scripts and we commanded R to carry out some simple (and not so simple) analyses for us. For a bit of a recap type <code>3 + 5</code> into the console. This is cool but has major limitations. If we wanted to add that answer to 10 we would have to repeate the process by going <code>3 + 5 + 10</code>. None of what we did was ‘stored’ anywhere. This is where R becomes even more useful. We can assign <em>values</em> to <em>objects</em>. Let’s suppose we have two people, one of whom has three apples and another who has five apples. We can then command R to store the sum of all the apples by coding <code>apples.sum &lt;- 3 + 5</code>.</p>
+<p>We just learnt about the theoretical differences between the console and scripts and we commanded R to carry out some simple (and not so simple) analyses for us. For a bit of a recap type <code>3 + 5</code> into the console. This is cool but has major limitations. If we wanted to add that answer to 10 we would have to repeate the process by going <code>3 + 5 + 10</code>. None of what we did was ‘stored’ anywhere. This is where R becomes even more useful. We can assign <em>values</em> to <em>objects</em>. Let’s suppose we have two people, one of whom has three apples and another who has five apples. We can then command R to store the sum of all the apples by coding <code>apples.sum &lt;- 3 + 5</code> - who would have thought you would have to do story sums after grade three!</p>
 <pre class="r"><code>3 + 5</code></pre>
 <pre><code>## [1] 8</code></pre>
 <pre class="r"><code>3 + 5 + 10</code></pre>
@@ -233,17 +341,17 @@ $(document).ready(function () {
 <pre class="r"><code>apples.sum &lt;- 3 + 5
 apples.sum</code></pre>
 <pre><code>## [1] 8</code></pre>
-<p>We have told R that <code>apples.sum</code>‘s value is 3 + 5 and then we have told it to tell us what <code>apples.sum</code>’s vlue is! This is cool! Now maybe we know that the person with three apples’ name is John (<code>John &lt;- 3</code>) and the second person who has five apples’ name is Thandeka (<code>Thandeka &lt;- 5</code>) we could get the sum of the apples by coding <code>apples.sum &lt;- John + Thandeka</code>:</p>
+<p>We have told R that <code>apples.sum</code>‘s value is 3 + 5 and then we have told it to tell us what <code>apples.sum</code>’s value is! This is cool! Now maybe we know that the person with three apples’ name is John (<code>John &lt;- 3</code>) and the second person who has five apples’ name is Thandeka (<code>Thandeka &lt;- 5</code>) we could get the sum of the apples by coding <code>apples.sum &lt;- John + Thandeka</code>:</p>
 <pre class="r"><code>John &lt;- 3
 Thandeka &lt;- 5
 apples.sum &lt;- John + Thandeka
 apples.sum</code></pre>
 <pre><code>## [1] 8</code></pre>
-<p>Neat hey? There is a lot going on here but break it down into its basic algebra and it sohuld become pretty simple to understand. The only really new thing is the <code>&lt;-</code> which is called the “assignment operator”. Its job is to assign the <em>values</em> on the right into the <em>object</em> on the left. You can type this quickly in RStudio by typing <code>Alt</code> + <code>-</code> (pushing <code>Alt</code> at the same time as the <code>-</code> key).</p>
+<p>Neat hey? There is a lot going on here but break it down into its basic algebra and it sohuld become pretty simple to understand. The only really new thing is <code>&lt;-</code> which is called the “assignment operator”. Its job is to assign the <em>values</em> on the right into the <em>object</em> on the left. You can type this quickly in RStudio by typing <code>Alt</code> + <code>-</code> (pushing <code>Alt</code> at the same time as the <code>-</code> (minus) key).</p>
 </div>
-<div id="the-difference-between-objects-and-variables" class="section level2">
-<h2>The difference between objects and variables</h2>
-<p>On the surface there is little difference between these two terms. What are commonly called variables in other coding languages are referred to as objects in R. The terms can be used interchangably for most instances in R, however, when dealing with statistical terminology, variables carry the same meaning in R as in general statistics.</p>
+<div id="objects-and-variables" class="section level2">
+<h2>Objects and variables</h2>
+<p>On the surface there is little difference between these two terms. What are commonly called variables in other coding languages seem to be referred to as objects in R. The terms can be used interchangably for most instances in R, however, when dealing with statistical terminology, variables carry the same meaning in R as in general statistics.</p>
 <p>Objects can be given almost any name but there are some important guidelines and considerations. The text below is taken from an <a href="http://r4ds.had.co.nz/workflow-basics.html#whats-in-a-name">R for Data Science</a> section:</p>
 <blockquote>
 <h4 id="whats-in-a-name">4.2 What’s in a name?</h4>
@@ -267,11 +375,21 @@ Let’s try to inspect it:</p>
 <code>#&gt; Error: object 'R_rocks' not found</code><br />
 There’s an implied contract between you and R: it will do the tedious computation for you, but in return, you must be completely precise in your instructions. Typos matter. Case matters.</p>
 </blockquote>
-<p>In general you should note that: * Objects cannot start with a number * Objects cannot carry the same name as some basic R functions (e.g., <code>if</code>, <code>else</code>, <code>for</code>) and it is best not to use the names of other less fundamental functions (e.g., <code>c</code>, <code>T</code>, <code>mean</code>, <code>data</code>, <code>df</code>, <code>weights</code>). * As R is a dynamic language it is best to use nouns for object names and verbs for function names. * Be consistant with how you name your variables. There are several <em>style guides</em> available online which dictate how you should format your code and name your objects and functions. * The <a href="http://style.tidyverse.org/">tidyverse</a> style * The <a href="http://jef.works/R-style-guide/">Jean Fan</a> style * The <a href="https://google.github.io/styleguide/Rguide.xml">Google</a> style These might all seem overwhelming but it is good practice to adopt one of these and use it consistantly. The most popular one is the tidyverse style. RStudio also has addin capabilities for installing <em>style checkers</em> or <em>style formatters</em> to correct your styling and suggest alternatives.</p>
+<p>In general you should note that:</p>
+<ul>
+<li><p>Objects cannot start with a number</p></li>
+<li><p>Objects cannot carry the same name as some basic R functions (e.g., <code>if</code>, <code>else</code>, <code>for</code>) and it is best not to use the names of other less fundamental functions (e.g., <code>c</code>, <code>T</code>, <code>mean</code>, <code>data</code>, <code>df</code>, <code>weights</code>).</p></li>
+<li><p>As R is a dynamic language it is best to use nouns for object names and verbs for function names.</p></li>
+<li><p>Be consistant with how you name your variables. There are several <em>style guides</em> available online which dictate how you should format your code and name your objects and functions.</p></li>
+<li><p>The <a href="http://style.tidyverse.org/">tidyverse</a> style</p></li>
+<li><p>The <a href="http://jef.works/R-style-guide/">Jean Fan</a> style</p></li>
+<li><p>The <a href="https://google.github.io/styleguide/Rguide.xml">Google</a> style</p></li>
+</ul>
+<p>These might all seem overwhelming but it is good practice to adopt one of these and use it consistantly. The most popular one is the tidyverse style. RStudio also has addin capabilities for installing <a href="https://support.rstudio.com/hc/en-us/articles/205753617-Code-Diagnostics"><em>style checkers</em></a> or <em>style formatters</em> to correct your styling and suggest alternatives.</p>
 </div>
 <div id="back-to-coding" class="section level2">
 <h2>Back to coding!</h2>
-<p>So we learnt that algebra works in R but that there are some slight differences, especially regarding the value assignment functionality. We can command R to both assign a value to an object and print the object’s value by enclosing the command in parentheses <code>()</code></p>
+<p>So we learnt that algebra works in R but that there are some slight differences, especially regarding the value assignment functionality. We can command R to both assign a value to an object and print the object’s value by enclosing the command in parentheses <code>()</code>:</p>
 <pre class="r"><code>John &lt;- 3                       # doesn&#39;t print anything
 Thandeka &lt;- 5                   # doesn&#39;t print anything
 (apples.sum &lt;- John + Thandeka) # but this does!</code></pre>
@@ -286,15 +404,17 @@ Thandeka &lt;- 5                   # doesn&#39;t print anything
 </div>
 <div id="comments" class="section level2">
 <h2>Comments</h2>
-<p>Sometimes R code can get pretty confusing to follow (both for you and someone else) and so it’s important to describe exactly what you are doing as you do it. That’s where comments come into the picture. Comments are text which is stored in your script but do not affect the content. You can use comments to describe the code or you can comment out sections of code within a script that you don’t want to run. To do this you can select the body of text and then push <code>Ctrl</code> + <code>Shift</code> + <code>c</code>.</p>
+<p>Sometimes R code can get pretty confusing to follow (both for you and someone else) and so it’s important to describe exactly what you are doing as you do it. That’s where comments come in. Comments are text which is stored in your script but do not affect the code’s output You can use comments to describe the code or you can comment out sections of code within a script that you don’t want to run - this is useful for troubleshooting pesky code. To do this you can select the body of text and then push <code>Ctrl</code> + <code>Shift</code> + <code>c</code>.</p>
 </div>
 <div id="functions-and-their-arguments" class="section level2">
 <h2>Functions and their arguments</h2>
-<p>Functions are the heart of what makes programming so effective. Functions are essentially scripts which other people (or even yourself) have written which consist of a set of commands which help carry out a particular tast. ‘Base R’ contains some fundamental functions but more specific functions can be accessed by installing R packages. Functions usually get one or more inputs. These are called <em>arguments</em>. If the supplied <em>arguments</em> are correct then the function will generally return a value which can either be displayed immediately or assigned to an object for future reference. Let’s look at the <code>sqrt()</code> function as an example. Call up the help file for this function by typing <code>?sqrt</code> into the console and pushing <code>Enter</code>. See how it shows <code>sqrt(x)</code> where under the <strong>Arguments</strong> section <code>x</code> is <code>a numeric or complex vector or array</code>? That basically means that <code>sqrt()</code> needs a numeric input:</p>
+<p>Functions are the heart of what makes programming so effective. Functions are essentially scripts which other people (and eventually maybe yourself) have written which consist of a set of commands which help carry out a particular tast. ‘Base R’ contains some fundamental functions but more specific functions can be accessed by installing R packages. Functions usually get one or more inputs. These are called <em>arguments</em>. If the supplied <em>arguments</em> are correct then the function will generally return a value which can either be displayed immediately or assigned to an object for future reference. Let’s look at the <code>sqrt()</code> function as an example. Call up the help file for this function by typing <code>?sqrt</code> into the console and pushing <code>Enter</code>. See how it shows <code>sqrt(x)</code> where under the <strong>Arguments</strong> section <code>x</code> is <code>a numeric or complex vector or array</code>? That basically means that <code>sqrt()</code> needs a numeric input:</p>
 <pre class="r"><code>sqrt(4) # this works nicely</code></pre>
 <pre><code>## [1] 2</code></pre>
-<pre class="r"><code>#sqrt(a) # this doesn&#39;t...
-a &lt;- 4  # make a = 4
+<pre class="r"><code>a &lt;- &quot;a&quot; # make a equal the letter &quot;a&quot;
+sqrt(a) # this doesn&#39;t...</code></pre>
+<pre><code>## Error in sqrt(a): non-numeric argument to mathematical function</code></pre>
+<pre class="r"><code>a &lt;- 4  # make a = 4
 sqrt(a) # this should work now</code></pre>
 <pre><code>## [1] 2</code></pre>
 <p><code>sqrt()</code> is a fairly simple function in that it only accepts one argument. Many functions can accept (and require you to input) way more than just one argument. A simple one we can look at is <code>round()</code>. This rounds decimal places. Typing <code>args()</code> lets you see what the arguments for a particular function are. If we type</p>
@@ -313,7 +433,7 @@ round(a)                  # round a off to the default number of digits</code></
 <pre><code>## [1] 3.142</code></pre>
 <pre class="r"><code>round(3,a)                # not explicityly defining the arguments is a bad idea...</code></pre>
 <pre><code>## [1] 3</code></pre>
-<p>Be sure to correctly define your arguments when dealing with more complicated functions. You can save yourself and the people reading your code a lot of trouble if you do. Each function does, however, have non-optional arguments. These should always be arranged first in the function call and in the correct order. If you do this right then you won’t need to specify to which argument each supplied variable or object is to be assigned.</p>
+<p>Be sure to correctly define your arguments when dealing with more complicated functions. You can save yourself and the people reading your code a lot of trouble if you do. Each function does, however, have non-optional arguments. By convention we input these in the order prescribed by the function itself. Eventually you will get the hang of this process and you won’t need to specify to which argument each supplied variable or object is to be assigned for the more common functions.</p>
 </div>
 <div id="vectors-and-data-types" class="section level2">
 <h2>Vectors and data types</h2>
@@ -337,7 +457,7 @@ length(length.cm)</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <pre class="r"><code>class(names.tree)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<p>When we get to larger data frmaes <code>str()</code> will give us the structure of the object:</p>
+<p>When we get to larger data frames, <code>str()</code> will give us the structure of the object:</p>
 <pre class="r"><code>str(length.cm)</code></pre>
 <pre><code>##  num [1:15] 5.8 4.8 3.7 5.3 4.5 8.3 8.8 9.7 7.7 8.1 ...</code></pre>
 <pre class="r"><code>str(names.tree)</code></pre>
@@ -351,7 +471,12 @@ length.cm</code></pre>
 <pre><code>##  [1] &quot;Spp 1&quot; &quot;Spp 1&quot; &quot;Spp 1&quot; &quot;Spp 1&quot; &quot;Spp 1&quot; &quot;Spp 2&quot; &quot;Spp 2&quot; &quot;Spp 2&quot;
 ##  [9] &quot;Spp 2&quot; &quot;Spp 2&quot; &quot;Spp 3&quot; &quot;Spp 3&quot; &quot;Spp 3&quot; &quot;Spp 3&quot; &quot;Spp 3&quot; &quot;Spp 4&quot;
 ## [17] &quot;Spp 4&quot; &quot;Spp 4&quot; &quot;Spp 4&quot; &quot;Spp 4&quot;</code></pre>
-<p>Note how in order to retain the original data contained in the vectors we have to ‘reassign’ the vector to itself together with the new data. If we didn’t the new data would override the original data. These are the two fundamental data types in R but there are a few otherse that are important: * <code>&quot;logical&quot;</code> which store <code>TRUE</code> and <code>FALSE</code> (boolean) type data * <code>&quot;integer&quot;</code> which store whole numbers Besides vectors there are several other important data structures in R. These include <code>list</code>, <code>matrix</code>, <code>data.frame</code>, <code>factor</code>, and <code>array</code>.</p>
+<p><em>Note</em> that in order to retain the original data contained in the vectors we have to ‘reassign’ the vector to itself together with the new data. If we didn’t the new data would override the original data. These are the two fundamental data types in R but there are a few otherse that are important:</p>
+<ul>
+<li><p><code>&quot;logical&quot;</code> which store <code>TRUE</code> and <code>FALSE</code> (boolean) type data</p></li>
+<li><p><code>&quot;integer&quot;</code> which store whole numbers</p></li>
+</ul>
+<p>Besides vectors there are several other important data structures in R. These include <code>list</code>, <code>matrix</code>, <code>data.frame</code>, <code>factor</code>, and <code>array</code>.</p>
 <div id="quiz-time" class="section level3">
 <h3>Quiz time</h3>
 <blockquote>
@@ -375,7 +500,7 @@ tricky &lt;- c(1, 2, 3, &quot;4&quot;)</code></pre>
 <pre><code>##  [1] &quot;Spp 1&quot; &quot;Spp 1&quot; &quot;Spp 1&quot; &quot;Spp 1&quot; &quot;Spp 1&quot; &quot;Spp 2&quot; &quot;Spp 2&quot; &quot;Spp 2&quot;
 ##  [9] &quot;Spp 2&quot; &quot;Spp 2&quot; &quot;Spp 3&quot; &quot;Spp 3&quot; &quot;Spp 3&quot; &quot;Spp 3&quot; &quot;Spp 3&quot; &quot;Spp 4&quot;
 ## [17] &quot;Spp 4&quot; &quot;Spp 4&quot; &quot;Spp 4&quot; &quot;Spp 4&quot;</code></pre>
-<p>but suppose we only want a few selected values of the vector… We can do this by telling R exactly what we want:</p>
+<p>but suppose we only want a few selected values of the vector. We can do this by telling R exactly what we want:</p>
 <pre class="r"><code>names.tree[2]</code></pre>
 <pre><code>## [1] &quot;Spp 1&quot;</code></pre>
 <pre class="r"><code>names.tree[c(2, 6, 9)]</code></pre>
@@ -404,12 +529,14 @@ data.prac</code></pre>
 ## 18      Spp 4      20.3
 ## 19      Spp 4      25.1
 ## 20      Spp 4      23.3</code></pre>
-<p>Not too hard hey? Whilst we might not always have to do this kind of work (much of the data we will use in R will likely already be formatted in this manner when we import it into R) the principles described here give a good introduction into the way you need to think in order to code effectively in R. That’s all for this section - next we’ll move on to “data wrangling” with <code>dplyr</code>.</p>
+<p>Not too tricky hey? Whilst we might not always have to do this kind of work (much of the data we will use in R will likely already be formatted in this manner when we import it into R) the principles described here give a good introduction into the way you need to think in order to code effectively in R. That’s all for this section - next we’ll move on to “data wrangling” with <code>dplyr</code>.</p>
 </div>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
