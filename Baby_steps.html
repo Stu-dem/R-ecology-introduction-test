@@ -300,7 +300,7 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -331,23 +331,23 @@ $(document).ready(function() {
 <h1>How to speak R</h1>
 <div id="creating-objects-in-r" class="section level2">
 <h2>Creating objects in R</h2>
-<p>We just learnt about the theoretical differences between the console and scripts and we commanded R to carry out some simple (and not so simple) analyses for us. For a bit of a recap type <code>3 + 5</code> into the console. This is cool but has major limitations. If we wanted to add that answer to 10 we would have to repeate the process by going <code>3 + 5 + 10</code>. None of what we did was ‘stored’ anywhere. This is where R becomes even more useful. We can assign <em>values</em> to <em>objects</em>. Let’s suppose we have two people, one of whom has three apples and another who has five apples. We can then command R to store the sum of all the apples by coding <code>apples.sum &lt;- 3 + 5</code> - who would have thought you would have to do story sums after grade three!</p>
+<p>We just learnt about the differences between the console and scripts and also we commanded R to carry out some simple (and not so simple) analyses for us. For a bit of a recap type <code>3 + 5</code> into the console. This is cool but has major limitations. If we wanted to add that answer to 10 we would have to repeate the process by going <code>3 + 5 + 10</code>. None of what we did was ‘stored’ anywhere. This is where R becomes even more useful. We can assign <em>values</em> to <em>objects</em>. Let’s suppose we have two people, one of whom has three apples and another who has five apples. We can then command R to store the sum of all the apples by coding <code>apples.sum &lt;- 3 + 5</code> - who would have thought you would have to do story sums after grade three!?</p>
 <pre class="r"><code>3 + 5</code></pre>
 <pre><code>## [1] 8</code></pre>
 <pre class="r"><code>3 + 5 + 10</code></pre>
 <pre><code>## [1] 18</code></pre>
 <pre class="r"><code>apples.sum &lt;- 3 + 5</code></pre>
-<p>See how the answer for each command appears directly below it? But what about the last set of commands? Why do we not see 8 anywhere there? That’s because all we have told R to do is to store the sum of 3 + 5 in apples.sum. We haven’t told R to tell us what apples.sum equals to. But look here:</p>
+<p>See how the answer for each command appears directly below it? But what about the last set of commands? Why do we not see 8 anywhere there? That’s because all we have told R to do is to store the sum of 3 + 5 in <code>apples.sum</code>. We haven’t told R to tell us what <code>apples.sum</code> equals to. But look here:</p>
 <pre class="r"><code>apples.sum &lt;- 3 + 5
 apples.sum</code></pre>
 <pre><code>## [1] 8</code></pre>
-<p>We have told R that <code>apples.sum</code>‘s value is 3 + 5 and then we have told it to tell us what <code>apples.sum</code>’s value is! This is cool! Now maybe we know that the person with three apples’ name is John (<code>John &lt;- 3</code>) and the second person who has five apples’ name is Thandeka (<code>Thandeka &lt;- 5</code>) we could get the sum of the apples by coding <code>apples.sum &lt;- John + Thandeka</code>:</p>
+<p>We have told R that <code>apples.sum</code>‘s value is 3 + 5 and then we have told it to tell us what <code>apples.sum</code>’s value is! This is great! Now maybe we know that the person with three apples’ name is John (<code>John &lt;- 3</code>) and the second person who has five apples’ name is Thandeka (<code>Thandeka &lt;- 5</code>) we could get the sum of the apples by coding <code>apples.sum &lt;- John + Thandeka</code>:</p>
 <pre class="r"><code>John &lt;- 3
 Thandeka &lt;- 5
 apples.sum &lt;- John + Thandeka
 apples.sum</code></pre>
 <pre><code>## [1] 8</code></pre>
-<p>Neat hey? There is a lot going on here but break it down into its basic algebra and it sohuld become pretty simple to understand. The only really new thing is <code>&lt;-</code> which is called the “assignment operator”. Its job is to assign the <em>values</em> on the right into the <em>object</em> on the left. You can type this quickly in RStudio by typing <code>Alt</code> + <code>-</code> (pushing <code>Alt</code> at the same time as the <code>-</code> (minus) key).</p>
+<p>Neat hey? There is a lot going on here but break it down into its basic algebra and it should become easier to understand. The only really new thing is <code>&lt;-</code> which is called the “assignment operator”. Its job is to assign the <em>values</em> on the right into the <em>object</em> on the left. You can type this quickly in RStudio by typing <code>Alt</code> + <code>-</code> (pushing <code>Alt</code> at the same time as the <code>-</code> (minus) key).</p>
 </div>
 <div id="objects-and-variables" class="section level2">
 <h2>Objects and variables</h2>
@@ -389,7 +389,7 @@ There’s an implied contract between you and R: it will do the tedious computat
 </div>
 <div id="back-to-coding" class="section level2">
 <h2>Back to coding!</h2>
-<p>So we learnt that algebra works in R but that there are some slight differences, especially regarding the value assignment functionality. We can command R to both assign a value to an object and print the object’s value by enclosing the command in parentheses <code>()</code>:</p>
+<p>We learnt that algebra works in R but that there are some slight differences, especially regarding the value assignment functionality. We can command R to both assign a value to an object and print the object’s value by enclosing the command in parentheses <code>()</code>:</p>
 <pre class="r"><code>John &lt;- 3                       # doesn&#39;t print anything
 Thandeka &lt;- 5                   # doesn&#39;t print anything
 (apples.sum &lt;- John + Thandeka) # but this does!</code></pre>
@@ -404,11 +404,11 @@ Thandeka &lt;- 5                   # doesn&#39;t print anything
 </div>
 <div id="comments" class="section level2">
 <h2>Comments</h2>
-<p>Sometimes R code can get pretty confusing to follow (both for you and someone else) and so it’s important to describe exactly what you are doing as you do it. That’s where comments come in. Comments are text which is stored in your script but do not affect the code’s output You can use comments to describe the code or you can comment out sections of code within a script that you don’t want to run - this is useful for troubleshooting pesky code. To do this you can select the body of text and then push <code>Ctrl</code> + <code>Shift</code> + <code>c</code>.</p>
+<p>Sometimes R code can get confusing to follow (both for you and someone else) and so it is important to describe exactly what you are doing as you do it. That is where comments come in. Comments are text which is stored in your script but do not affect the code’s output You can use comments to describe the code or you can comment out sections of code within a script that you do not want to run - this is useful for troubleshooting pesky code. To do this you can select the body of text and then push <code>Ctrl</code> + <code>Shift</code> + <code>c</code>.</p>
 </div>
 <div id="functions-and-their-arguments" class="section level2">
 <h2>Functions and their arguments</h2>
-<p>Functions are the heart of what makes programming so effective. Functions are essentially scripts which other people (and eventually maybe yourself) have written which consist of a set of commands which help carry out a particular tast. ‘Base R’ contains some fundamental functions but more specific functions can be accessed by installing R packages. Functions usually get one or more inputs. These are called <em>arguments</em>. If the supplied <em>arguments</em> are correct then the function will generally return a value which can either be displayed immediately or assigned to an object for future reference. Let’s look at the <code>sqrt()</code> function as an example. Call up the help file for this function by typing <code>?sqrt</code> into the console and pushing <code>Enter</code>. See how it shows <code>sqrt(x)</code> where under the <strong>Arguments</strong> section <code>x</code> is <code>a numeric or complex vector or array</code>? That basically means that <code>sqrt()</code> needs a numeric input:</p>
+<p>Functions are the heart of what makes programming so effective. Functions are essentially scripts which other people (and eventually maybe yourself) have written which consist of a set of commands which help carry out a particular task. ‘Base R’ contains some fundamental functions but more specific functions can be accessed by installing various other R packages. Functions usually get one or more inputs. These are called <em>arguments</em>. If the supplied <em>arguments</em> are correct then the function will generally return a value (or an array of many values) which can either be displayed immediately or assigned to an object for future reference. Let us look at the <code>sqrt()</code> function as an example. Call up the help file for this function by typing <code>?sqrt</code> into the console and pushing <code>Enter</code>. See how it shows <code>sqrt(x)</code> where under the <strong>Arguments</strong> section <code>x</code> is <code>a numeric or complex vector or array</code>? That basically means that <code>sqrt()</code> needs a numeric input:</p>
 <pre class="r"><code>sqrt(4) # this works nicely</code></pre>
 <pre><code>## [1] 2</code></pre>
 <pre class="r"><code>a &lt;- &quot;a&quot; # make a equal the letter &quot;a&quot;
@@ -417,11 +417,11 @@ sqrt(a) # this doesn&#39;t...</code></pre>
 <pre class="r"><code>a &lt;- 4  # make a = 4
 sqrt(a) # this should work now</code></pre>
 <pre><code>## [1] 2</code></pre>
-<p><code>sqrt()</code> is a fairly simple function in that it only accepts one argument. Many functions can accept (and require you to input) way more than just one argument. A simple one we can look at is <code>round()</code>. This rounds decimal places. Typing <code>args()</code> lets you see what the arguments for a particular function are. If we type</p>
+<p><code>sqrt()</code> is a fairly simple function in that it only accepts one argument. Many functions can accept (and require) more than just one argument. A simple one we can look at is <code>round()</code>. This rounds a numeric value to a defined number of decimal places. Typing <code>args()</code> lets you see what the arguments for a particular function are. If we type</p>
 <pre class="r"><code>args(round)</code></pre>
-<pre><code>## function (x, digits = 0) 
+<pre><code>## function (x, digits = 0)
 ## NULL</code></pre>
-<p>we’ll see that <code>round()</code> accepts <code>x</code> and <code>digits =</code>. Again, <code>x</code> is a numeric vector or array. <code>digits =</code> refers to the number of decimal places you want after the point. You will see that the default value will be defined. That means that you don’t need to supply every argument but you can override the default arguments:</p>
+<p>we’ll see that <code>round()</code> accepts <code>x</code> and <code>digits =</code>. Again, <code>x</code> is a numeric vector or array. <code>digits =</code> refers to the number of decimal places you want after the point. You will see that the default value will often be defined. That means that you do not need to supply every argument but you can override the default arguments if you have the need to:</p>
 <pre class="r"><code>a &lt;- pi                   # a = pi = 3.14159
 round(a)                  # round a off to the default number of digits</code></pre>
 <pre><code>## [1] 3</code></pre>
@@ -433,7 +433,7 @@ round(a)                  # round a off to the default number of digits</code></
 <pre><code>## [1] 3.142</code></pre>
 <pre class="r"><code>round(3,a)                # not explicityly defining the arguments is a bad idea...</code></pre>
 <pre><code>## [1] 3</code></pre>
-<p>Be sure to correctly define your arguments when dealing with more complicated functions. You can save yourself and the people reading your code a lot of trouble if you do. Each function does, however, have non-optional arguments. By convention we input these in the order prescribed by the function itself. Eventually you will get the hang of this process and you won’t need to specify to which argument each supplied variable or object is to be assigned for the more common functions.</p>
+<p>Be sure to correctly define your arguments when dealing with more complicated functions. You can save yourself and the people reading your code a lot of trouble if you do. Each function does, however, have non-optional arguments. By convention we input these in the order prescribed by the function itself. Eventually you will get the hang of this process and you will not need to specify to which argument each supplied variable or object is to be assigned for the more common functions.</p>
 </div>
 <div id="vectors-and-data-types" class="section level2">
 <h2>Vectors and data types</h2>
@@ -444,7 +444,7 @@ length.cm</code></pre>
 ## [15] 15.5</code></pre>
 <p>We can then record the name of each tree in a vector in a similar manner:</p>
 <pre class="r"><code>names.tree &lt;- c(&quot;Spp 1&quot;, &quot;Spp 1&quot;, &quot;Spp 1&quot;, &quot;Spp 1&quot;, &quot;Spp 1&quot;, &quot;Spp 2&quot;, &quot;Spp 2&quot;, &quot;Spp 2&quot;, &quot;Spp 2&quot;, &quot;Spp 2&quot;, &quot;Spp 3&quot;, &quot;Spp 3&quot;, &quot;Spp 3&quot;, &quot;Spp 3&quot;, &quot;Spp 3&quot;)</code></pre>
-<p>The quotation marks here are essential. They tell R that each value assigned to the vector is a character string. Without these quotations R will assume that <code>Spp 1</code>, <code>Spp 2</code>, and <code>Spp 3</code> are objects. This would throw an error because there are no objects with those names in our R session.</p>
+<p>The quotation marks here are essential. They tell R that each value assigned to the vector is a character string. Without these quotations R will assume that <code>Spp 1</code>, <code>Spp 2</code>, and <code>Spp 3</code> are objects. This would throw an error because there are no objects with those names in our current R session.</p>
 <p>We can get an overview of a vector. <code>length()</code> will tell us how long (how many elements) are in the vector:</p>
 <pre class="r"><code>length.cm &lt;- c(5.8, 4.8, 3.7, 5.3, 4.5, 8.3, 8.8, 9.7, 7.7, 8.1, 15.2, 16.1, 14.3, 12.2, 15.5)
 names.tree &lt;- c(&quot;Spp 1&quot;, &quot;Spp 1&quot;, &quot;Spp 1&quot;, &quot;Spp 1&quot;, &quot;Spp 1&quot;, &quot;Spp 2&quot;, &quot;Spp 2&quot;, &quot;Spp 2&quot;, &quot;Spp 2&quot;, &quot;Spp 2&quot;, &quot;Spp 3&quot;, &quot;Spp 3&quot;, &quot;Spp 3&quot;, &quot;Spp 3&quot;, &quot;Spp 3&quot;)
@@ -471,7 +471,7 @@ length.cm</code></pre>
 <pre><code>##  [1] &quot;Spp 1&quot; &quot;Spp 1&quot; &quot;Spp 1&quot; &quot;Spp 1&quot; &quot;Spp 1&quot; &quot;Spp 2&quot; &quot;Spp 2&quot; &quot;Spp 2&quot;
 ##  [9] &quot;Spp 2&quot; &quot;Spp 2&quot; &quot;Spp 3&quot; &quot;Spp 3&quot; &quot;Spp 3&quot; &quot;Spp 3&quot; &quot;Spp 3&quot; &quot;Spp 4&quot;
 ## [17] &quot;Spp 4&quot; &quot;Spp 4&quot; &quot;Spp 4&quot; &quot;Spp 4&quot;</code></pre>
-<p><em>Note</em> that in order to retain the original data contained in the vectors we have to ‘reassign’ the vector to itself together with the new data. If we didn’t the new data would override the original data. These are the two fundamental data types in R but there are a few otherse that are important:</p>
+<p><em>Note</em> that in order to retain the original data contained in the vectors we have to ‘reassign’ the vector to itself together with the new data. If we did not do that the new data would override the original data. These are the two fundamental data types in R but there are a few others that are important:</p>
 <ul>
 <li><p><code>&quot;logical&quot;</code> which store <code>TRUE</code> and <code>FALSE</code> (boolean) type data</p></li>
 <li><p><code>&quot;integer&quot;</code> which store whole numbers</p></li>
@@ -505,7 +505,7 @@ tricky &lt;- c(1, 2, 3, &quot;4&quot;)</code></pre>
 <pre><code>## [1] &quot;Spp 1&quot;</code></pre>
 <pre class="r"><code>names.tree[c(2, 6, 9)]</code></pre>
 <pre><code>## [1] &quot;Spp 1&quot; &quot;Spp 2&quot; &quot;Spp 2&quot;</code></pre>
-<p>Working with individual vectors is great - but suppose we wanted to put them together in a table form. We can do that quite easily with the <code>cbind()</code> function (this basically stands for “column bind”). We would bind the two vectors and then tell R that this combination must be <code>as.data.frame()</code>. This converts these two vectors (initially a matrix) into an object that has columns and rows much like an Excel Spreadsheet does:</p>
+<p>Working with individual vectors is great - but suppose we wanted to put them together in a table form. We can do that quite easily with the <code>cbind()</code> function (this stands for “column bind”). We would bind the two vectors and then tell R that this combination must be <code>as.data.frame()</code>. This converts these two vectors (initially a matrix) into an object that has columns and rows much like a spreadsheet does:</p>
 <pre class="r"><code>data.prac &lt;- as.data.frame(cbind(names.tree, length.cm))
 data.prac</code></pre>
 <pre><code>##    names.tree length.cm
@@ -529,7 +529,7 @@ data.prac</code></pre>
 ## 18      Spp 4      20.3
 ## 19      Spp 4      25.1
 ## 20      Spp 4      23.3</code></pre>
-<p>Not too tricky hey? Whilst we might not always have to do this kind of work (much of the data we will use in R will likely already be formatted in this manner when we import it into R) the principles described here give a good introduction into the way you need to think in order to code effectively in R. That’s all for this section - next we’ll move on to “data wrangling” with <code>dplyr</code>.</p>
+<p>Whilst we might not always have to do this kind of work (much of the data we will use in R will likely already be formatted in this manner when we import it into R) the principles described here provide a good introduction into the way you need to think in order to code effectively in R. That is all for this section - next we will move on to “data wrangling” with <code>dplyr</code>.</p>
 </div>
 </div>
 
